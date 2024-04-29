@@ -36,3 +36,326 @@ body {
   align-items: center;
   gap:20rem;
 }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-bg:#000;
+  --second-color: #fff;
+  --third-color: #d3d3d3;
+  --body-padding: 4rem;
+}
+
+html {
+  font-size: 62.5%;
+  /* 1rem = 10px */
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  position: relative;
+}
+/*hedear*/
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+
+.btn {
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 5rem;
+  font-weight: bold;
+  background-color: var(--third-color);
+  cursor: pointer;
+}
+
+
+
+nav {
+  padding: 3rem var(--body-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.7rem;
+}
+
+nav .logo {
+  font-size: 3.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+nav .navLinks {
+  display: flex;
+  gap: 5rem;
+  font-weight: bold;
+}
+nav .menu{
+  position: relative;
+  display: inline-block;
+}
+nav .menu .con{
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 1rem;
+  z-index: 1;
+}
+nav .menu .con a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.con a:hover {background-color: #f1f1f1}
+
+ .menu:hover .con {
+  display: block;
+}
+
+.menu:hover .btn {
+  background-color: #ebebeb;
+}
+/*end header*/
+
+/* Hero */
+
+section.hero {
+  position: relative;
+  margin: 0 var(--body-padding);
+  height: calc(100vh - 12rem);
+  background: url("/main.jpg");
+  background-position: center center;
+  background-size: cover;
+  border-radius: 4rem;
+  overflow: hidden;
+}
+
+section.hero .infos {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+section.hero .infos .mainText {
+  font-size: 6rem;
+  color: var(--second-color);
+  width: 45%;
+  text-align: center;
+  font-weight: bold;
+}
+
+section.hero .infos button {
+  margin-top: 2rem;
+  padding: 1rem 4rem;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+section.hero .overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.3;
+  z-index: 2;
+}
+
+.priceInfos {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  transform: translateY(-30%);
+  z-index: 3;
+}
+
+.priceInfos .wrapper {
+  background-color: var(--third-color);
+  display: flex;
+  justify-content: space-evenly;
+  gap: 6rem;
+  padding: 3rem 5rem;
+  width: 60%;
+  align-items: center;
+  border-radius: 1rem;
+}
+
+.priceInfos .wrapper h4 {
+  font-size: 2rem;
+}
+
+.priceInfos .wrapper p {
+  font-size: 1.8rem;
+  margin-top: 2rem;
+  color: rgba(0, 0, 0, 0.662);
+}
+
+.priceInfos .wrapper button {
+  background-color: var(--main-bg);
+  color: var(--third-color);
+  justify-self: right;
+}
+
+/* Devenir chauffeur */
+
+section.becomeDriver {
+  margin: 0 var(--body-padding);
+  display: flex;
+  gap: 10rem;
+  height: 100vh;
+}
+
+section.becomeDriver .left {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+
+section.becomeDriver .right {
+  flex: 4;
+  background: url("/chauffeur.jpg");
+  height: 90%;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 1rem;
+}
+
+section.becomeDriver .left h2 {
+  font-size: 5rem;
+  margin-bottom: 3rem;
+}
+
+section.becomeDriver .left p {
+  font-size: 3rem;
+  margin-bottom: 7rem;
+}
+
+section.becomeDriver .left button {
+  background-color: var(--third-color);
+  color: var(--main-bg);
+  width: 45%;
+  font-size: 2rem;
+}
+
+/* Personnalisation */
+
+section.personnalize {
+  margin: 0 var(--body-padding);
+  background-color: var(--main-bg);
+  color: var(--second-color);
+  height: 70vh;
+  border-radius: 2rem;
+  display: flex;
+  padding: 5rem 5rem;
+}
+
+section.personnalize .left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+section.personnalize .left h2 {
+  font-size: 7rem;
+  margin-top: 4rem;
+}
+
+section.personnalize .left p {
+  font-size: 3rem;
+  width: 50%;
+  color: var(--third-color);
+}
+
+section.personnalize .right {
+  align-self: flex-end;
+}
+
+section.personnalize .right button {
+  width: 25rem;
+  font-size: 2rem;
+}
+/*Securite*/
+section.securite{
+  margin: 0 var(--body-padding);
+  display: flex;
+  gap: 10rem;
+  height: 100vh;
+}
+section.securite .left {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+section.securite .left h2 {
+  font-size: 5rem;
+  margin-bottom: 3rem;
+}
+section.securite .left p {
+  font-size: 3rem;
+  margin-bottom: 7rem;
+}
+section.securite .right {
+  flex: 4;
+  background: url("/securitelogo.png");
+  height: 90%;
+  background-size: 30rem 30rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-radius: 1rem;
+
+}
+
+/* Footer */
+
+footer {
+  background-color: var(--main-bg);
+  color: var(--second-color);
+  padding: 5rem var(--body-padding);
+}
+
+footer .wrapper {
+}
+
+footer .wrapper .logo {
+  font-size: 7rem;
+  font-weight: bold;
+  margin-bottom: 5rem;
+}
+
+footer .wrapper .footerLinks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+footer .bottom{
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  background-color: var(--main-bg);
+  padding:1rem 0;
+}
+/*a propos de nous */
+section .about{
+
+  height: 100vh;
+  background-color: red;
+}

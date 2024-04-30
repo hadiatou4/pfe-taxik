@@ -7,7 +7,7 @@ function About() {
     <div>
         <HeaderHome/>
       Bonjour je suis le About
-     <Footer/>
+        <Footer/>
     </div>
   )
 }

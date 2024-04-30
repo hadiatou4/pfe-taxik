@@ -1,16 +1,18 @@
+import Link from 'next/link'
 import React from 'react'
 
 function HeaderHome() {
   return (
     <nav>
     <div class="logo">
-        Taxik
+        <Link href="">Taxik</Link>
     </div>
     <ul class="navLinks">
-        <li><a href="">Accueil</a></li>
-        <li><a href="">Services</a></li>
-        <li><a href="/About">A propos</a></li>
-        <li><a href="">Contact</a></li>
+        <li> <Link href="/Acceuil">Accueil </Link></li>
+        <li> <Link href="/Services">Services </Link></li>
+        <li> <Link href="/About">Apropos </Link></li>
+        <li> <Link href="/Contact">Contact</Link></li>
+        
     </ul>
     <div class="menu">
         <button class="btn">

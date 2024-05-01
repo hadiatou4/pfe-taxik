@@ -9,7 +9,7 @@ function HeaderHome() {
     </div>
     <ul class="navLinks">
         <li> <Link href="/Acceuil">Accueil </Link></li>
-        <li> <Link href="/Services">Services </Link></li>
+        <li> <Link href="/Authentification">Se déplacer </Link></li>
         <li> <Link href="/About">Apropos </Link></li>
         <li> <Link href="/Contact">Contact</Link></li>
         
@@ -19,8 +19,8 @@ function HeaderHome() {
             Se connecter
         </button>
         <div class="con">
-        <a href="#">Chauffeur</a>
-        <a href="#">Passager</a>
+        <a href="/Authentification">Chauffeur</a>
+        <a href="/Authentification">Passager</a>
         </div>
     </div>
 </nav>

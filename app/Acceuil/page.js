@@ -39,7 +39,7 @@ function Acceuil() {
                     },
                     options: {
                         types: ['(regions)'],
-                        componentRestrictions: { country: 'MA' }, // Code ISO du pays, par exemple 'FR' pour la France
+                        componentRestrictions: { country: 'MAR' }, // Code ISO du pays, par exemple 'FR' pour la France
                       },
                   }}
                 ></GooglePlacesAutocomplete>
@@ -63,7 +63,7 @@ function Acceuil() {
                             fontSize: '2rem'
                         }),
                     },
-                    restrictions: { country: 'ma' }, // Restreint aux lieux situés au Maroc
+                    restrictions: { country: 'MAR' }, // Restreint aux lieux situés au Maroc
                   }}
                 ></GooglePlacesAutocomplete>
             </div>

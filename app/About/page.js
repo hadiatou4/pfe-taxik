@@ -6,7 +6,7 @@ function About() {
   return (
     <div>
         <HeaderHome/>
-      Bonjour je suis le About  je ne veux rien savoir 
+      Bonjour je suis le About 
         <Footer/>
     </div>
   )

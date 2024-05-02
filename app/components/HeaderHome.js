@@ -9,7 +9,7 @@ function HeaderHome() {
     </div>
     <ul class="navLinks">
         <li> <Link href="/Acceuil">Accueil </Link></li>
-        <li> <Link href="/Authentification">Se déplacer </Link></li>
+        <li> <Link href="/Authentification" target='blank'>Se déplacer </Link></li>
         <li> <Link href="/About">Apropos </Link></li>
         <li> <Link href="/Contact">Contact</Link></li>
         

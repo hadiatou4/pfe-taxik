@@ -119,7 +119,8 @@ function Acceuil() {
             <h2>Votre sécurité, notre priorité</h2>
             <p>La sécurité est notre priorité. Nous nous 
                 engageons à offrir un environnement sûr pour 
-                tous nos passagers et chauffeurs</p>
+                tous nos passagers et chauffeurs
+            </p>
         </div>
         <div class="right"></div>
     </section>

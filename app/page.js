@@ -4,7 +4,7 @@ import ProfileUser from "./ProfileUser/page";
 export default function Home() {
   
     return (
-        <ProfileUser/>
+       <Acceuil></Acceuil>
     );
   }
   

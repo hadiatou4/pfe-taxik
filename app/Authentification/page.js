@@ -5,7 +5,7 @@ import OtpInput from 'otp-input-react';
 import { CgSpinner } from 'react-icons/cg';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { auth } from '../firebase.config';
+import { auth, db } from '../firebase.config'; // Ajoutez db depuis firebase.config
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
@@ -17,7 +17,34 @@ function Auth() {
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
   const [user, setUser] = useState(null);
-  const [authenticated, setAuthenticated] = useState(false); // Nouvel état pour suivre l'état de l'authentification réussie
+  const [authenticated, setAuthenticated] = useState(false);
+
+  async function savePhoneNumberToFirestore(phoneNumber) {
+    try {
+      await db.collection('users').doc(user.uid).set({
+        phoneNumber: phoneNumber,
+      }, { merge: true }
+    );
+    } catch (error) {
+      console.error("Error saving phone number to Firestore: ", error);
+    }
+  }
+
+  function onOTPverify() {
+    setLoading(true);
+    window.confirmationResult
+      .confirm(otp)
+      .then(async (res) => {
+        setUser(res.user);
+        setLoading(false);
+        setAuthenticated(true);
+        await savePhoneNumberToFirestore(ph); // Appeler la fonction pour enregistrer le numéro de téléphone dans Firestore
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }
 
   function onCaptchVerify() {
     if (!window.recaptchaverifier) {
@@ -51,29 +78,13 @@ function Auth() {
       });
   }
 
-  function onOTPverify() {
-    setLoading(true);
-    window.confirmationResult
-      .confirm(otp)
-      .then(async (res) => {
-        console.log(res);
-        setUser(res.user);
-        setLoading(false);
-        setAuthenticated(true); // Définir l'état de l'authentification réussie ici
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
-  }
-
   return (
     <section className='bg-black flex items-center justify-center h-screen'>
-      <div className='bg-white w-50 pl-20 pr-20 rounded-lg text-center'>
+      <div className='bg-white w-50 pl-20 pr-20 rounded-lg text-center '>
         <Toaster toasOptions={{ duration: 4000 }} />
         <div id='recaptcha-container'></div>
-        {authenticated ? ( // Si l'authentification est réussie, afficher le formulaire d'inscription
-          <RegistrationForm/>
+        {authenticated ? (
+          <RegistrationForm />
         ) : (
           <div className='w-full font-bold flex flex-col gap-4 rounded-lg p-4'>
             <h1 className='text-center leading-normal text-black font-medium text-3xl mb-6'>
@@ -109,7 +120,7 @@ function Auth() {
             ) : (
               <>
                 <h1 className='font-bold text-2xl'>
-                  Vous n'avez pas de compte ? <Link className='text-blue-700' href='/'> Connectez-vous</Link>
+                  Vous avez déjà un compte ? <Link className='text-blue-700' href='/'> Connectez-vous</Link>
                 </h1>
                 <div className='bg-black text-white w-fit mx-auto p-4 rounded-full'>
                   <BsTelephoneFill size={30} />

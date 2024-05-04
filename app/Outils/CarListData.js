@@ -5,7 +5,7 @@ export const CarListData=[
         name:'TaxiRouge',
         seat:4,
         desc:'Taxi normal',
-        amount:4,
+        amount:2.7,
         image:'/Taxikrouge.png'
     },
     {
@@ -13,7 +13,7 @@ export const CarListData=[
         name:'Confortable',
         seat:4,
         desc:'Voitures personnelles',
-        amount:5,
+        amount:3.5,
         image:'/taxik.jpg'
     }
 ]

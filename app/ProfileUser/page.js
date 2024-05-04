@@ -21,11 +21,11 @@ function ProfileUser() {
           <LoadScript libraries={['places']}
            googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}>
             <div className='p-6 grid grid-cols-1 md:grid-cols-3 gap-5'>
-                <div>
-                    <SearchSection />
-                </div>
                 <div className='col-span-2 '>
                     <GoogleMapSection/>
+                </div>
+                <div>
+                    <SearchSection />
                 </div>
             </div>
             </LoadScript>

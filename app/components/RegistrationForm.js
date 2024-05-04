@@ -41,8 +41,8 @@ const RegistrationForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-black p-8 mt-8 rounded shadow-lg">
-      <h2 className="text-2xl text-white font-semibold mb-4">Inscription</h2>
+    <form onSubmit={handleSubmit} className="w-full mx-auto bg-black p-8 mt-8 rounded shadow-lg">
+      <h2 className="text-2xl text-white font-semibold mb-4">Création de votre compte </h2>
       <input type="text" name="firstName" placeholder="Prénom" value={formData.firstName} onChange={handleChange} required className="block w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:border-blue-400" />
       <input type="text" name="lastName" placeholder="Nom" value={formData.lastName} onChange={handleChange} required className="block w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:border-blue-400" />
       <input type="date" name="dateOfBirth" placeholder="Date de naissance" value={formData.dateOfBirth} onChange={handleChange} required className="block w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:border-blue-400" />

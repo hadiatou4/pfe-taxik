@@ -80,7 +80,7 @@ function Auth() {
 
   return (
     <section className='bg-black flex items-center justify-center h-screen'>
-      <div className='bg-white w-50 pl-20 pr-20 rounded-lg text-center'>
+      <div className='bg-white w-50 pl-20 pr-20 rounded-lg text-center '>
         <Toaster toasOptions={{ duration: 4000 }} />
         <div id='recaptcha-container'></div>
         {authenticated ? (
@@ -120,7 +120,7 @@ function Auth() {
             ) : (
               <>
                 <h1 className='font-bold text-2xl'>
-                  Vous n'avez pas de compte ? <Link className='text-blue-700' href='/'> Connectez-vous</Link>
+                  Vous avez déjà un compte ? <Link className='text-blue-700' href='/'> Connectez-vous</Link>
                 </h1>
                 <div className='bg-black text-white w-fit mx-auto p-4 rounded-full'>
                   <BsTelephoneFill size={30} />

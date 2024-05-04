@@ -47,7 +47,7 @@ function SearchSection() {
             <option>Oui</option>
           </select>
         </h2>
-        <button className='p-3 bg-black w-full mt-5 text-white rounded-lg' onClick={calculateDistance}>Chercher un chauffeur</button>
+        <button className='p-3 bg-black w-full mt-5 text-white rounded-lg' onClick={calculateDistance}>Continuer</button>
       </div>
       {dist ? <CarsListOptions distance={dist} /> : null}
     </div>

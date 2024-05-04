@@ -1,6 +1,7 @@
 'use client'
 import React ,{ useState } from 'react';
 import { auth, firestore } from '../firebase.config';
+import { collection, addDoc } from 'firebase/firestore';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({

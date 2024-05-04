@@ -121,7 +121,7 @@ section.hero {
   margin: 0 var(--body-padding);
   height: calc(100vh - 12rem);
   background: url("/main.jpg");
-  background-position: center center;
+  background-position: center;
   background-size: cover;
   border-radius: 4rem;
   overflow: hidden;

@@ -67,7 +67,7 @@ function Acceuil() {
                   }}
                 ></GooglePlacesAutocomplete>
             </div>
-            <button class="btn bg-black text-white rounded-lg">Voir le prix</button>
+            <button class="btn bg-black text-white rounded-lg" onClick={handleChange}>Voir le prix</button>
         </div>
     </div>
 

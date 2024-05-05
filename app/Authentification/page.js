@@ -1,15 +1,16 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BsFillShieldLockFill, BsTelephoneFill } from 'react-icons/bs';
 import OtpInput from 'otp-input-react';
 import { CgSpinner } from 'react-icons/cg';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { auth, db } from '../firebase.config'; // Ajoutez db depuis firebase.config
+import { auth, db } from '../firebase.config';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
 import RegistrationForm from '../components/RegistrationForm';
+import { addDoc, collection } from 'firebase/firestore';
 
 function Auth() {
   const [otp, setOtp] = useState('');
@@ -18,15 +19,35 @@ function Auth() {
   const [showOTP, setShowOTP] = useState(false);
   const [user, setUser] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
+  const [uid, setUid] = useState(null); // Ajout du state pour stocker l'UID
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        setAuthenticated(true);
+        setUid(user.uid); // Stocker l'UID de l'utilisateur authentifié dans le state
+      } else {
+        setUser(null);
+        setAuthenticated(false);
+        setUid(null); // Réinitialiser l'UID lorsque l'utilisateur se déconnecte
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   async function savePhoneNumberToFirestore(phoneNumber) {
     try {
-      await db.collection('users').doc(user.uid).set({
+      const docRef = await addDoc(collection(db, 'Passagers'), {
         phoneNumber: phoneNumber,
-      }, { merge: true }
-    );
+      });
+      return true;
     } catch (error) {
       console.error("Error saving phone number to Firestore: ", error);
+      return false;
     }
   }
 
@@ -38,7 +59,8 @@ function Auth() {
         setUser(res.user);
         setLoading(false);
         setAuthenticated(true);
-        await savePhoneNumberToFirestore(ph); // Appeler la fonction pour enregistrer le numéro de téléphone dans Firestore
+        await savePhoneNumberToFirestore(ph);
+        setShowOTP(false);
       })
       .catch((err) => {
         console.log(err);
@@ -84,7 +106,7 @@ function Auth() {
         <Toaster toasOptions={{ duration: 4000 }} />
         <div id='recaptcha-container'></div>
         {authenticated ? (
-          <RegistrationForm />
+          <RegistrationForm uid={uid} phoneNumber={ph} /> // Passer l'UID et le numéro de téléphone comme props
         ) : (
           <div className='w-full font-bold flex flex-col gap-4 rounded-lg p-4'>
             <h1 className='text-center leading-normal text-black font-medium text-3xl mb-6'>

@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link'
 import React from 'react'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
 import HeaderHome from '../components/HeaderHome'
@@ -17,7 +16,7 @@ function Acceuil() {
                 Votre compagnon de confiance pour tous vos déplacements
             </p>
             <button class="btn">
-            <Link href="/Authentification" target='blank'> Réservez un trajet</Link>
+                Réservez un trajet
             </button>
         </div>
     </section>
@@ -68,11 +67,7 @@ function Acceuil() {
                   }}
                 ></GooglePlacesAutocomplete>
             </div>
-<<<<<<< HEAD
-            <button class="btn bg-black text-white rounded-lg" onClick={handleChange}>Voir le prix</button>
-=======
-            <button class="btn bg-black text-white rounded-lg"><Link href="/Authentification" target='blank'>Voir le prix</Link></button>
->>>>>>> 6f97b8f19c7fdb2843f386e435d643e2050c65de
+            <button class="btn bg-black text-white rounded-lg">Voir le prix</button>
         </div>
     </div>
 
@@ -87,7 +82,7 @@ function Acceuil() {
                 Rejoignez notre réseau de conducteur professionnel dès aujourd'hui
             </p>
             <button class="btn">
-            <Link href="/Authentification" target='blank'>Devenir un chauffeur</Link>
+                Devenir chauffeur
             </button>
         </div>
         <div class="right">
@@ -108,7 +103,7 @@ function Acceuil() {
         </div>
         <div class="right">
             <button class="btn">
-            <Link href="/Authentification" target='blank'>En savoir plus</Link>
+                En savoir plus
             </button>
         </div>
     </section>

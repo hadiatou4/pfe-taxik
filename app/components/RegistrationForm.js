@@ -1,10 +1,11 @@
 'use client'
 import React ,{ useState } from 'react';
-import { auth, firestore } from '../firebase.config';
+import { auth, db } from '../firebase.config';
 import { collection, addDoc } from 'firebase/firestore';
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ uid, phoneNumber }) => {
   const [formData, setFormData] = useState({
+    phonenumber: phoneNumber, // Stocker le numéro de téléphone dans le state
     firstName: '',
     lastName: '',
     dateOfBirth: '',
@@ -12,6 +13,25 @@ const RegistrationForm = () => {
     password: '',
     confirmPassword: ''
   });
+
+  async function fire(lastName, firstName, dateN, email, password, phonenumber) {
+    try {
+      const docRef = await addDoc(collection(db, 'Passagers'), {
+        ID: uid, // Stocker l'UID ici
+        Numero: phonenumber,
+        Prenom: firstName,
+        nom: lastName,
+        dateN: dateN,
+        email: email,
+        motDePass: password,
+      });
+      console.log('Document written with Id', docRef.id);
+      return true;
+    } catch (error) {
+      console.error('Error adding document', error);
+      return false;
+    }
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,20 +44,19 @@ const RegistrationForm = () => {
       alert("Les mots de passe ne correspondent pas");
       return;
     }
-
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(formData.email, formData.password);
-
-      await firestore.collection('users').doc(user.uid).set({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        dateOfBirth: formData.dateOfBirth,
-        email: formData.email
+    const { firstName, lastName, dateOfBirth, email, password, phonenumber } = formData;
+    const added = await fire(firstName, lastName, dateOfBirth, email, password, phonenumber);
+    if (added) {
+      setFormData({
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        email: '',
+        password:'',
       });
-
-      alert("Inscription réussie !");
-    } catch (error) {
-      alert(error.message);
+      alert('Data added successfully');
+    } else {
+      alert('Error adding data');
     }
   };
 

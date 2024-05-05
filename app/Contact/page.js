@@ -1,8 +1,10 @@
-"use client"
+'use client'
 import HeaderHome from '../components/HeaderHome'
 import Footer from '../components/Footer'
-import { FaPhone } from 'react-icons/fa'; // Importer l'icône de téléphone
+import { FaPhone } from 'react-icons/fa';
 import React, { useState } from 'react';
+import { db } from '../firebase.config';
+import { collection, addDoc } from 'firebase/firestore';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +14,22 @@ const Contact = () => {
     message: '',
   });
 
+  async function fire(name, email, subject, message) {
+    try {
+      const docRef = await addDoc(collection(db, 'Messages'), {
+        name: name,
+        email: email,
+        subject: subject,
+        message: message,
+      });
+      console.log('Document written with Id', docRef.id);
+      return true;
+    } catch (error) {
+      console.error('Error adding document', error);
+      return false;
+    }
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -20,17 +38,21 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Ajoutez ici la logique pour envoyer le formulaire
-    console.log('Formulaire soumis avec les données :', formData);
-    // Réinitialiser le formulaire après soumission
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: '',
-    });
+    const { name, email, subject, message } = formData;
+    const added = await fire(name, email, subject, message);
+    if (added) {
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
+      alert('Data added successfully');
+    } else {
+      alert('Error adding data');
+    }
   };
 
   return (
@@ -49,7 +71,7 @@ const Contact = () => {
         <p className="text-3xl leading-snug italic font-semibold text-gray-600 mb-8">
           Chez Taxik, nous sommes engagés à vous offrir un service de qualité exceptionnelle. Votre satisfaction est notre priorité absolue, c'est pourquoi nous prenons chaque commentaire, préoccupation et suggestion au sérieux. Votre avis compte énormément pour nous, car il nous aide à améliorer continuellement notre application pour mieux répondre à vos besoins.
         </p>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" >
           <fieldset className="border border-gray-200 p-6 rounded">
             <legend className="text-xl font-semibold mb-4">Formulaire de contact</legend>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

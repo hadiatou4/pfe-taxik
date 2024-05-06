@@ -1,11 +1,11 @@
 'use client'
-import React ,{ useState } from 'react';
+import React, { useState } from 'react';
 import { auth, db } from '../firebase.config';
 import { collection, addDoc } from 'firebase/firestore';
 
-const RegistrationForm = ({ uid, phoneNumber }) => {
+const RegistrationForm = ({ uid, phoneNumber}) => {
   const [formData, setFormData] = useState({
-    phonenumber: phoneNumber, // Stocker le numéro de téléphone dans le state
+    phonenumber: phoneNumber, 
     firstName: '',
     lastName: '',
     dateOfBirth: '',
@@ -17,7 +17,7 @@ const RegistrationForm = ({ uid, phoneNumber }) => {
   async function fire(lastName, firstName, dateN, email, password, phonenumber) {
     try {
       const docRef = await addDoc(collection(db, 'Passagers'), {
-        ID: uid, // Stocker l'UID ici
+        ID: uid, 
         Numero: phonenumber,
         Prenom: firstName,
         nom: lastName,
@@ -58,6 +58,7 @@ const RegistrationForm = ({ uid, phoneNumber }) => {
     } else {
       alert('Error adding data');
     }
+   window.location.href='/ProfileUser';
   };
 
   return (
@@ -69,7 +70,9 @@ const RegistrationForm = ({ uid, phoneNumber }) => {
       <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="block w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:border-blue-400" />
       <input type="password" name="password" placeholder="Mot de passe" value={formData.password} onChange={handleChange} required className="block w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:border-blue-400" />
       <input type="password" name="confirmPassword" placeholder="Répéter le mot de passe" value={formData.confirmPassword} onChange={handleChange} required className="block w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:border-blue-400" />
-      <button type="submit" className="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:bg-gray-200">S'inscrire</button>
+      {/* <Link href="/ProfileUser">  */}
+        <button type="submit" className="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:bg-gray-200">S'inscrire</button>
+      {/* </Link> */}
     </form>
   );
 };

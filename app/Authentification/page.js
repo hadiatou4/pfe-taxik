@@ -5,13 +5,11 @@ import OtpInput from 'otp-input-react';
 import { CgSpinner } from 'react-icons/cg';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { auth, db } from '../firebase.config';
+import { auth } from '../firebase.config';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
 import RegistrationForm from '../components/RegistrationForm';
-import { addDoc, collection } from 'firebase/firestore';
-
 function Auth() {
   const [otp, setOtp] = useState('');
   const [ph, setPh] = useState('');
@@ -19,8 +17,7 @@ function Auth() {
   const [showOTP, setShowOTP] = useState(false);
   const [user, setUser] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
-  const [uid, setUid] = useState(null); // Ajout du state pour stocker l'UID
-
+  const [uid, setUid] = useState(null); 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -39,18 +36,6 @@ function Auth() {
     };
   }, []);
 
-  async function savePhoneNumberToFirestore(phoneNumber) {
-    try {
-      const docRef = await addDoc(collection(db, 'Passagers'), {
-        phoneNumber: phoneNumber,
-      });
-      return true;
-    } catch (error) {
-      console.error("Error saving phone number to Firestore: ", error);
-      return false;
-    }
-  }
-
   function onOTPverify() {
     setLoading(true);
     window.confirmationResult
@@ -59,7 +44,7 @@ function Auth() {
         setUser(res.user);
         setLoading(false);
         setAuthenticated(true);
-        await savePhoneNumberToFirestore(ph);
+        // await savePhoneNumberToFirestore(ph);
         setShowOTP(false);
       })
       .catch((err) => {

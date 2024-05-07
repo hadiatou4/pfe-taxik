@@ -1,7 +1,16 @@
+"use client"
 import Link from 'next/link'
 import React from 'react'
+import { useAppContext } from '../context/AppContext';
+
 
 function HeaderHome() {
+    const {setIsChauffeur} = useAppContext()
+
+    const handleOnClickChauffeur=()=>{
+        setIsChauffeur(true)
+        sessionStorage.setItem("isChauffeur", true)
+    }
   return (
     <nav>
     <div class="logo">
@@ -9,7 +18,7 @@ function HeaderHome() {
     </div>
     <ul class="navLinks">
         <li> <Link href="/Acceuil">Accueil </Link></li>
-        <li> <Link href="/Authentification" target='blank'>Se déplacer </Link></li>
+        <li> <Link href="/Authentification">Se déplacer </Link></li>
         <li> <Link href="/About">Apropos </Link></li>
         <li> <Link href="/Contact">Contact</Link></li>
         
@@ -19,8 +28,8 @@ function HeaderHome() {
             Se connecter
         </button>
         <div class="con">
-        <a href="/Authentification">Chauffeur</a>
-        <a href="/Authentification">Passager</a>
+        <Link href="/Authentification" onClick={handleOnClickChauffeur}>Chauffeur</Link>
+        <Link href="/Authentification">Passager</Link>
         </div>
     </div>
 </nav>

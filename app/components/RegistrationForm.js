@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { auth, db } from '../firebase.config';
 import { collection, addDoc } from 'firebase/firestore';
+import { useAppContext } from '../context/AppContext';
+import { useRouter } from 'next/navigation';
 
 const RegistrationForm = ({ uid, phoneNumber}) => {
   const [formData, setFormData] = useState({
@@ -13,10 +15,13 @@ const RegistrationForm = ({ uid, phoneNumber}) => {
     password: '',
     confirmPassword: ''
   });
+  const router = useRouter()
+  const {isChauffeur} = useAppContext()
 
   async function fire(lastName, firstName, dateN, email, password, phonenumber) {
     try {
-      const docRef = await addDoc(collection(db, 'Passagers'), {
+      let docRef;
+      let userInfos = {
         ID: uid, 
         Numero: phonenumber,
         Prenom: firstName,
@@ -24,9 +29,17 @@ const RegistrationForm = ({ uid, phoneNumber}) => {
         dateN: dateN,
         email: email,
         motDePass: password,
-      });
+      }
+      if(isChauffeur){
+         docRef = await addDoc(collection(db, 'Conducteurs'),userInfos );   
+      }
+      else{
+        docRef = await addDoc(collection(db, 'Passagers'),userInfos );  
+      }
       console.log('Document written with Id', docRef.id);
+      localStorage.setItem("userId", docRef.id)
       return true;
+     
     } catch (error) {
       console.error('Error adding document', error);
       return false;
@@ -58,7 +71,12 @@ const RegistrationForm = ({ uid, phoneNumber}) => {
     } else {
       alert('Error adding data');
     }
-   window.location.href='/ProfileUser';
+    if(isChauffeur){
+      router.push("/CarInfos")
+    }
+    else{
+      router.push("/ProfileUser")
+    }
   };
 
   return (
@@ -70,9 +88,7 @@ const RegistrationForm = ({ uid, phoneNumber}) => {
       <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="block w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:border-blue-400" />
       <input type="password" name="password" placeholder="Mot de passe" value={formData.password} onChange={handleChange} required className="block w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:border-blue-400" />
       <input type="password" name="confirmPassword" placeholder="Répéter le mot de passe" value={formData.confirmPassword} onChange={handleChange} required className="block w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:border-blue-400" />
-      {/* <Link href="/ProfileUser">  */}
         <button type="submit" className="w-full bg-gray-200 text-gray-500 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:bg-gray-200">S'inscrire</button>
-      {/* </Link> */}
     </form>
   );
 };

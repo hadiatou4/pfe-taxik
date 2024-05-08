@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 function GoogleMapDriver() {
     const containerStyle = {
-        width: '400px',
+        width: '100%',
         height: '400px'
     };
 
@@ -50,6 +50,7 @@ function GoogleMapDriver() {
             zoom={10}
             onLoad={onLoad}
             onUnmount={onUnmount}
+            options={{ mapId: 'fbea991f93271444' }}
         >
             { /* Child components, such as markers, info windows, etc. */ }
             <></>

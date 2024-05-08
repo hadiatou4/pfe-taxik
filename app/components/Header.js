@@ -1,12 +1,18 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
 import Image from 'next/image'; // Importe Image depuis next/image
-
+import { useAppContext } from '../context/AppContext';
 function Header() {
     const headerMenu=[
         {id:1, name:'Voyage', icon:'/taxi.jpg'}
         
     ];
+    const {isChauffeur} = useAppContext();
+    const [enligne,setEnligne]=useState(false);
+    const handleOnClick =()=>{
+        setEnligne(true)
 
+    }
     return (
         <div className='p-4 pb-3 pl-10 border-b-4 menu'>
             <h1 className='logo'>Taxik</h1>
@@ -22,6 +28,16 @@ function Header() {
                     </div>
                 ))}
             </div>
+            
+{ 
+            isChauffeur? 
+            <div className='flex gap-3'>
+            <Image  src={enligne ? '/online.jpg':'/offline.jpg'} width={25} height={17} />
+            <button
+            onClick={handleOnClick}
+            className=' text-2xl font-bold ' >se mettre en ligne </button>
+            </div>
+             :false}
         </div>
     );
 }

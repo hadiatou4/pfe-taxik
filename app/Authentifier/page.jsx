@@ -6,26 +6,37 @@ import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
 import { db } from '../firebase.config'; // Importez uniquement la base de données Firestore
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { useAppContext } from '../context/AppContext';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { isChauffeur, setIsChauffeur } = useAppContext();
+  let querysnapshot;
 
   async function handleLogin() {
     setLoading(true);
     try {
-      const userRef = query( collection(db,'Passagers'), where('email', '==', email), where('motDePass', '==', password));
-      const querysnapshot = await getDocs(userRef);
-      console.log(userRef)
-      if (!querysnapshot.empty) {
-        // Utilisateur trouvé
-        toast.success('Connexion réussie !');
-
-        // Redirection vers la page de profil ou toute autre page appropriée
-        router.push('/ProfileUser');
+      let userRef;
+      if (!isChauffeur) {
+        userRef = query(collection(db, 'Passagers'), where('email', '==', email), where('motDePass', '==', password));
       } else {
-        // Utilisateur non trouvé ou mot de passe incorrect
+        userRef = query(collection(db, 'Conducteurs'), where('email', '==', email), where('motDePass', '==', password));
+      }
+
+      querysnapshot = await getDocs(userRef);
+
+      if (!querysnapshot.empty) {
+        toast.success('Connexion réussie !');
+        if (!isChauffeur) {
+          router.push('/ProfileUser');
+        } else {
+          router.push('/ProfileDriver'); 
+          
+        }
+      } else {
         toast.error("L'utilisateur n'existe pas ou le mot de passe est incorrect.");
       }
     } catch (error) {

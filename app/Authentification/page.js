@@ -127,7 +127,7 @@ function Auth() {
             ) : (
               <>
                 <h1 className='font-bold text-2xl'>
-                  Vous avez déjà un compte ? <Link className='text-blue-700' href='/'> Connectez-vous</Link>
+                  Vous avez déjà un compte ? <Link className='text-blue-700' href='/Connexion'> Connectez-vous</Link>
                 </h1>
                 <div className='bg-black text-white w-fit mx-auto p-4 rounded-full'>
                   <BsTelephoneFill size={30} />

@@ -33,7 +33,7 @@ function Login() {
         if (!isChauffeur) {
           router.push('/ProfileUser');
         } else {
-          router.push('/ProfileDriver'); 
+          router.push('/Driver'); 
           
         }
       } else {

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import Image from 'next/image';
 import { useAppContext } from '../context/AppContext';
 import { Menu, Transition } from '@headlessui/react';
@@ -11,12 +11,26 @@ function Header() {
   const {isChauffeur , setIsChauffeur} = useAppContext();
   const [enligne, setEnligne] = useState(false);
 
+  
+
   const handleOnClick = () => {
     setEnligne(!enligne);
+    sessionStorage.setItem("enligne", !enligne)
   };
+ 
  const handleOnClick1 =( )=> {
     setIsChauffeur(!isChauffeur);
  }
+ //get the current location
+ //add the markers
+ //set the geofire map
+
+ useEffect(()=>{
+  setEnligne(sessionStorage.getItem("enligne"))
+  //TODO: ensures that teh value is right
+  setIsChauffeur(sessionStorage.getItem("isChauffeur"))
+ },[])
+
 
   return (
     <div className='flex items-center justify-between p-4 pb-3 pl-10 border-b-4'>
@@ -34,9 +48,9 @@ function Header() {
 
         {isChauffeur && (
           <div className='flex gap-3'>
-            <Image src={enligne ? '/online.jpg' : '/offline.jpg'} width={25} height={17} />
+            <Image alt ={"Driver"} src={enligne ? '/online.jpg' : '/offline.jpg'} width={25} height={17} />
             <button onClick={handleOnClick} className='text-2xl font-bold'>
-              {enligne ? 'Se déconnecter' : 'Se connecter'}
+              {enligne ? 'Se déconnecter ' : 'Se mettre en ligne'}
             </button>
           </div>
         )}

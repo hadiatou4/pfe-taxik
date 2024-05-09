@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@cometchat-pro/chat": "^3.0.13",
+    "@headlessui/react": "^2.0.3",
     "@react-google-maps/api": "^2.19.3",
     "@stripe/react-stripe-js": "^2.7.0",
     "@stripe/stripe-js": "^3.3.0",

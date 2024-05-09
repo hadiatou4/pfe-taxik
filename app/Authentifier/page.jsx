@@ -4,7 +4,7 @@ import { CgSpinner } from 'react-icons/cg';
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
-import { db } from '../firebase.config'; // Importez uniquement la base de données Firestore
+import { db } from '../firebase.config'; 
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useAppContext } from '../context/AppContext';
 

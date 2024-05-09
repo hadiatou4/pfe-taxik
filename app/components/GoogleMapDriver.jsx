@@ -1,9 +1,11 @@
 "use client"
 import { GoogleMap, Marker, OverlayView, useJsApiLoader } from '@react-google-maps/api';
 import React, { useEffect, useState } from 'react';
-
+import { auth, db } from '../firebase.config';
+import { doc, updateDoc } from 'firebase/firestore';
+import { GeoFirestore } from 'geofirestore';
 function GoogleMapDriver() {
-    const isDriverOnline = sessionStorage.getItem("enligne") === "true";
+    const isDriverOnline = sessionStorage.getItem("enligne") || null;
     const [position, setPosition] = useState({});
     const containerStyle = {
         width: '100%',
@@ -20,11 +22,13 @@ function GoogleMapDriver() {
         if (isDriverOnline) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
-                    (position) => {
+                    async (position) => {
+                        const driverId = localStorage.getItem("userId");
                         const { latitude, longitude } = position.coords;
                         setCenter({ lat: latitude, lng: longitude });
                         setPosition({ lat: latitude, lng: longitude });
-                    },
+                        const conducteurEnLigneRef = doc(db, 'conducteurEnLigne', driverId);
+                        const updatedInfo = await updateDoc(conducteurEnLigneRef, {position})                  },
                     (error) => {
                         console.error('Error getting current position:', error);
                     },

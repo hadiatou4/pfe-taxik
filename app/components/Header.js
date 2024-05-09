@@ -124,9 +124,4 @@ function Header() {
   );
 }
 
-export default Header; {/* {headerMenu.map((item) => (
-    <div className='flex gap-2 items-center' key={item.id}>
-      <Image src={item.icon} width={25} height={17} />
-      <h2 className='text-[14px] font-medium'>{item.name}</h2>
-    </div>
-  ))} */}
+export default Header;
